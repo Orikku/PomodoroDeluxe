@@ -6,12 +6,12 @@ data class TimerState(
 ) {
 
     companion object {
-        const val SECOND_MILLS = 100L
-        const val SECONDS_PER_MINUTE = 6000L
+        const val SECOND_MILLS = 1000L // 1 segundo en milisegundos
+        const val SECONDS_PER_MINUTE = 60L // 60 segundos por minuto
     }
 
     fun convertToSeconds(): Long {
-        return minutes * SECONDS_PER_MINUTE + seconds * SECOND_MILLS
+        return (minutes * SECONDS_PER_MINUTE + seconds) * SECOND_MILLS
     }
 
     override fun toString(): String {

@@ -1,13 +1,14 @@
 package com.mmb.clock
 
 import com.mmb.clock.entity.TimerState
-import com.mmb.clock.entity.TimerState.Companion.SECONDS_PER_MINUTE
 
 fun Long.convertToTimerState(): TimerState {
-    val min: Long = this / SECONDS_PER_MINUTE
-    val remaining = this - min * SECONDS_PER_MINUTE
+    val totalSeconds = this / TimerState.SECOND_MILLS // Milisegundos a segundos
+    val min = totalSeconds / TimerState.SECONDS_PER_MINUTE
+    val remainingSeconds = totalSeconds % TimerState.SECONDS_PER_MINUTE
+
     return TimerState(
         minutes = min,
-        seconds = remaining / TimerState.SECOND_MILLS
+        seconds = remainingSeconds
     )
 }
