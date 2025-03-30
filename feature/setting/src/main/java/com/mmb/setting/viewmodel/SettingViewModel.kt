@@ -7,9 +7,10 @@ import androidx.lifecycle.viewModelScope
 import com.mmb.setting.datasource.SettingRepositoryImpl
 import com.mmb.setting.entity.SettingViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -23,13 +24,24 @@ class SettingViewModel @Inject constructor(
     private val _setting: MutableLiveData<SettingViewState> = MutableLiveData()
     val setting: LiveData<SettingViewState> = _setting
 
-    val sessionName = repository.getSessionName()
+    private val _sessionName = MutableLiveData("")
+    val sessionName: LiveData<String> get() = _sessionName
 
-    val themeViewState: Flow<String> = settingViewState
-        .map { it.theme }
+    private var debounceJob: Job? = null
+
+    init {
+        viewModelScope.launch {
+            repository.getSessionName().collectLatest { nameFromDb ->
+                if (_sessionName.value.isNullOrEmpty()) _sessionName.value = nameFromDb
+            }
+        }
+    }
 
     fun setSessionName(name: String) {
-        viewModelScope.launch {
+        _sessionName.value = name
+        debounceJob?.cancel()
+        debounceJob = viewModelScope.launch {
+            delay(500)
             repository.setSessionName(name)
         }
     }

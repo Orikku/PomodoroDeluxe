@@ -3,10 +3,11 @@ package com.mmb.setting.view
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.OutlinedTextField
+import androidx.compose.material.TextField
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -28,14 +29,15 @@ internal fun SettingScreen(
             .padding(horizontal = 16.dp, vertical = 16.dp)
             .fillMaxWidth()
     ) {
+        val sessionName by viewModel.sessionName.observeAsState(initial = "")
+
         Text(
             text = "Pomodoro Deluxe",
             modifier = Modifier.padding(vertical = 8.dp),
             fontSize = Layout.largeFontSize
         )
         Text(text = "Nombre de la tarea", modifier = Modifier.padding(top = 8.dp))
-        val sessionName = viewModel.sessionName.collectAsState(initial = "").value
-        OutlinedTextField(
+        TextField(
             value = sessionName,
             onValueChange = viewModel::setSessionName,
             modifier = Modifier
@@ -43,7 +45,6 @@ internal fun SettingScreen(
                 .padding(vertical = 16.dp),
             singleLine = true,
         )
-
         viewModel.setting.observeAsState().value?.let {
             Slider("Tiempo de enfoque", it.focusDuration, viewModel::setFocusDuration, "Min", 60)
             Slider(
@@ -52,6 +53,5 @@ internal fun SettingScreen(
             Slider("Tiempo de descanso largo", it.longBreakDuration, viewModel::setLongBreak, "Min", 60)
             Slider("Conjunto de pomodoros", it.sessionCount, viewModel::setSessionCount, "Poms", 10)
         }
-
     }
 }

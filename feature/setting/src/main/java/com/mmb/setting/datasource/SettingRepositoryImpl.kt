@@ -76,9 +76,7 @@ class SettingRepositoryImpl @Inject constructor(
     }
 
     suspend fun setSessionName(name: String) {
-        updateData {
-            it.setSessionName(name)
-        }
+        updateData { it.setSessionName(name) }
     }
 
     fun getSettings(): Flow<SettingViewState> {
