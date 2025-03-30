@@ -46,7 +46,7 @@ class SessionViewModel @Inject constructor(
             settingRepository.getFocusDuration().collect { duration ->
                 indicators.add(
                     SessionIndicatorEntity(
-                        title = "Focus",
+                        title = "Enfoque",
                         duration = duration,
                         icon = Icons.Sharp.Computer,
                         active = currentSessionType == SessionState.FOCUS
@@ -59,7 +59,7 @@ class SessionViewModel @Inject constructor(
             settingRepository.getShortBreakDuration().collect { duration ->
                 indicators.add(
                     SessionIndicatorEntity(
-                        title = "Short Break",
+                        title = "Descanso corto",
                         duration = duration,
                         icon = Icons.Filled.LocalCafe,
                         active = currentSessionType == SessionState.SHORT_BREAK
@@ -72,7 +72,7 @@ class SessionViewModel @Inject constructor(
             settingRepository.getLongBreakDuration().collect { duration ->
                 indicators.add(
                     SessionIndicatorEntity(
-                        title = "Long Break",
+                        title = "Descanso largo",
                         duration = duration,
                         icon = Icons.Filled.Chair,
                         active = currentSessionType == SessionState.LONG_BREAK

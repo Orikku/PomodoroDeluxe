@@ -29,11 +29,11 @@ internal fun SettingScreen(
             .fillMaxWidth()
     ) {
         Text(
-            text = "Pomodoro",
+            text = "Pomodoro Deluxe",
             modifier = Modifier.padding(vertical = 8.dp),
             fontSize = Layout.largeFontSize
         )
-        Text(text = "Name", modifier = Modifier.padding(top = 8.dp))
+        Text(text = "Nombre de la tarea", modifier = Modifier.padding(top = 8.dp))
         val sessionName = viewModel.sessionName.collectAsState(initial = "").value
         OutlinedTextField(
             value = sessionName,
@@ -45,12 +45,12 @@ internal fun SettingScreen(
         )
 
         viewModel.setting.observeAsState().value?.let {
-            Slider("Focus time", it.focusDuration, viewModel::setFocusDuration, "Min", 60)
+            Slider("Tiempo de enfoque", it.focusDuration, viewModel::setFocusDuration, "Min", 60)
             Slider(
-                "Short break time", it.shortBreakDuration, viewModel::setShortBreak, "Min", 60
+                "Tiempo de descanso corto", it.shortBreakDuration, viewModel::setShortBreak, "Min", 60
             )
-            Slider("Long break time", it.longBreakDuration, viewModel::setLongBreak, "Min", 60)
-            Slider("Set of pomodoro", it.sessionCount, viewModel::setSessionCount, "Poms", 10)
+            Slider("Tiempo de descanso largo", it.longBreakDuration, viewModel::setLongBreak, "Min", 60)
+            Slider("Conjunto de pomodoros", it.sessionCount, viewModel::setSessionCount, "Poms", 10)
         }
 
     }

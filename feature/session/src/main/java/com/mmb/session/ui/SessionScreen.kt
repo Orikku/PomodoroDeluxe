@@ -36,7 +36,7 @@ internal fun SessionScreen(
         val pomCount = viewModel.pomCount.collectAsState(initial = 0).value
         val completed = viewModel.completedPom.observeAsState(initial = 0).value
         Text(
-            text = "$completed of $pomCount",
+            text = "$completed de $pomCount",
             modifier = Modifier.padding(vertical = 16.dp),
             fontSize = 20.sp
         )
