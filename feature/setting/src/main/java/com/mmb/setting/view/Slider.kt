@@ -6,11 +6,12 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import kotlin.math.roundToInt
+import androidx.compose.material.Slider
 
 @Composable
 fun Slider(
@@ -20,24 +21,24 @@ fun Slider(
     valuePlaceHolder: String = "",
     maxValue: Int
 ) {
-    val sliderPosition = remember { mutableStateOf(initialValue) }
+    val sliderPosition = remember { mutableIntStateOf(initialValue) }
     Column(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Row(
-            Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween
+            Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(text = label)
-            Text(text = "${sliderPosition.value} $valuePlaceHolder")
+            Text(text = "${sliderPosition.intValue} $valuePlaceHolder")
         }
-        androidx.compose.material.Slider(
-            valueRange = 1f..maxValue.toFloat(),
-            value = sliderPosition.value.toFloat(),
+
+        Slider(
+            value = sliderPosition.intValue.toFloat(),
             onValueChange = {
-                sliderPosition.value = it.roundToInt()
-                onValueChange(sliderPosition.value)
-            }
+                sliderPosition.intValue = it.roundToInt()
+                onValueChange(sliderPosition.intValue)
+            },
+            valueRange = 1f..maxValue.toFloat()
         )
     }
 }
