@@ -22,6 +22,7 @@ compseNavigation = "2.5.3"
 mockito = "4.5.0"
 mockitoKotlin = "3.2.0"
 junit = "4.13.2"
+constraintlayout = "2.2.1"
 
 #[plugins]
 #spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
@@ -72,6 +73,7 @@ coroutine = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", versi
 test-junit = { module = "junit:junit", version.ref = "junit" }
 test-mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockito" }
 test-mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockitoKotlin" }
+constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 
 [bundles]
 room = ["room-common", "room-ktx", "room-runtime"]

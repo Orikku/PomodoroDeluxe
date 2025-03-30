@@ -16,9 +16,10 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun ProgressIndicator(percentage: Float, modifier: Modifier = Modifier) {
-    val stroke = with(LocalDensity.current) { Stroke(4.dp.toPx(), cap = StrokeCap.Round) }
+    val stroke = with(LocalDensity.current) { Stroke(10.dp.toPx(), cap = StrokeCap.Round) }
     val color = MaterialTheme.colors.primary
     val bac = MaterialTheme.colors.primaryVariant
+
     Canvas(
         modifier = modifier
             .fillMaxSize()
@@ -32,6 +33,7 @@ fun ProgressIndicator(percentage: Float, modifier: Modifier = Modifier) {
         )
         val size = Size(innerRadius * 2, innerRadius * 2)
         val sweepAngle = percentage * 360f
+
         drawArc(
             color = bac,
             startAngle = 0f,
@@ -50,29 +52,11 @@ fun ProgressIndicator(percentage: Float, modifier: Modifier = Modifier) {
             useCenter = false,
             style = stroke
         )
-
-        val angleInDegrees = sweepAngle + 180
-        val x = -(innerRadius * kotlin.math.sin(
-            Math.toRadians(
-                angleInDegrees.toDouble()
-            )
-        )).toFloat() + ((size.width + 4.dp.toPx()) / 2)
-        val y = (innerRadius * kotlin.math.cos(
-            Math.toRadians(angleInDegrees.toDouble())
-        )).toFloat() + ((size.height + 4.dp.toPx()) / 2)
-
-        if (percentage != 0f) {
-            drawCircle(
-                color = color,
-                radius = 10f,
-                center = Offset(x, y)
-            )
-        }
     }
 }
 
 @Composable
 @Preview
 fun ProgressIndicatorPreview() {
-    ProgressIndicator(0.8f)
+    ProgressIndicator(0.1f)
 }
