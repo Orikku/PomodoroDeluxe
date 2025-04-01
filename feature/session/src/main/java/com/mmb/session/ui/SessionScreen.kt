@@ -19,6 +19,7 @@ fun Session(
     viewModel: SessionViewModel,
     modifier: Modifier = Modifier
 ) {
+    viewModel.reloadIndicators()
     SessionScreen(viewModel, modifier)
 }
 

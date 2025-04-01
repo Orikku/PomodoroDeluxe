@@ -46,6 +46,10 @@ class SessionViewModel @Inject constructor(
         subscribe()
     }
 
+    fun reloadIndicators() {
+        getIndicators()
+    }
+
     private fun subscribe() {
         updateSessionType(SessionState.FOCUS)
         getIndicators()
@@ -53,6 +57,7 @@ class SessionViewModel @Inject constructor(
 
     private fun getIndicators() {
         val indicators = arrayListOf<SessionIndicatorEntity>()
+
         viewModelScope.launch {
             settingRepository.getFocusDuration().collect { duration ->
                 indicators.add(
@@ -66,6 +71,7 @@ class SessionViewModel @Inject constructor(
                 _indicators.postValue(indicators)
             }
         }
+
         viewModelScope.launch {
             settingRepository.getShortBreakDuration().collect { duration ->
                 indicators.add(
@@ -79,6 +85,7 @@ class SessionViewModel @Inject constructor(
                 _indicators.postValue(indicators)
             }
         }
+
         viewModelScope.launch {
             settingRepository.getLongBreakDuration().collect { duration ->
                 indicators.add(
