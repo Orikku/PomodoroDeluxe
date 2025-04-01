@@ -79,6 +79,7 @@ internal fun AppNavigation(
 private fun NavGraphBuilder.addClockScreen(navController: NavHostController) {
     composable(route = Screen.Clock.route) {
         Column {
+            val context = androidx.compose.ui.platform.LocalContext.current
             val sessionViewModel = hiltViewModel<SessionViewModel>()
             val clockViewModel = hiltViewModel<PomodoroClockViewModel>()
 
@@ -86,12 +87,13 @@ private fun NavGraphBuilder.addClockScreen(navController: NavHostController) {
                 navigateToSettings = { navController.navigate(Screen.Settings.route) },
                 duration = sessionViewModel.sessionDuration.observeAsState(initial = 0).value,
                 viewModel = clockViewModel,
-                onTimerCompleted = sessionViewModel::onSessionCompleted
+                onTimerCompleted = { sessionViewModel.onSessionCompleted(context) }
             )
             Session(sessionViewModel, modifier = Modifier.wrapContentSize())
         }
     }
 }
+
 
 private fun NavGraphBuilder.addSettingsScreen() {
     composable(route = Screen.Settings.route) {
