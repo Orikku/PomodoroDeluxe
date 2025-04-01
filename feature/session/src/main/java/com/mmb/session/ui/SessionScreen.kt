@@ -19,7 +19,6 @@ fun Session(
     viewModel: SessionViewModel,
     modifier: Modifier = Modifier
 ) {
-    viewModel.subscribe()
     SessionScreen(viewModel, modifier)
 }
 

@@ -34,6 +34,10 @@ class SessionViewModel @Inject constructor(
     private val _indicators: MutableLiveData<List<SessionIndicatorEntity>> = MutableLiveData()
     val indicators: LiveData<List<SessionIndicatorEntity>> = _indicators
 
+    init {
+        subscribe()
+    }
+
     fun subscribe() {
         // use last session type that user was in
         updateSessionType(SessionState.FOCUS)
