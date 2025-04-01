@@ -81,6 +81,7 @@ private fun NavGraphBuilder.addClockScreen(navController: NavHostController) {
         Column {
             val sessionViewModel = hiltViewModel<SessionViewModel>()
             val clockViewModel = hiltViewModel<PomodoroClockViewModel>()
+
             Clock(
                 navigateToSettings = { navController.navigate(Screen.Settings.route) },
                 duration = sessionViewModel.sessionDuration.observeAsState(initial = 0).value,

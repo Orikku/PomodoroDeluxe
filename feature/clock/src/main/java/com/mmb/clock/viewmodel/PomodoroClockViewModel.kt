@@ -47,4 +47,9 @@ class PomodoroClockViewModel @Inject constructor(
         timeManager.restartTimer(sessionTimerState)
     }
 
+    fun skipSession(onTimerCompleted: () -> Unit) {
+        _buttonState.value = false
+        timeManager.pauseTimer()
+        onTimerCompleted()
+    }
 }
