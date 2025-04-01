@@ -38,7 +38,7 @@ class SessionViewModel @Inject constructor(
         subscribe()
     }
 
-    fun subscribe() {
+    private fun subscribe() {
         // use last session type that user was in
         updateSessionType(SessionState.FOCUS)
         getIndicators()
